@@ -10,9 +10,13 @@ RUN apk add --no-cache \
     zip \
     unzip \
     git \
-    oniguruma-dev
+    oniguruma-dev \
+    linux-headers autoconf g++ make openssl-dev
 
 RUN docker-php-ext-install pdo pdo_mysql bcmath
+
+# Extensión nativa de MongoDB vía PECL
+RUN pecl install mongodb && docker-php-ext-enable mongodb
 
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

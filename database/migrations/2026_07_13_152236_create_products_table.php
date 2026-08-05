@@ -11,13 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->decimal('price', 8, 2);
-            $table->integer('stock');
-            $table->timestamps();
-        });
+        // Schema::create('products', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('name');
+        //     $table->decimal('price', 8, 2);
+        //     $table->integer('stock');
+        //     $table->timestamps();
+        // });
+
+        Schema::connection('mongodb')
+            ->table('products', function ($collection) {
+
+                $collection->index('name');
+
+            });
     }
 
     /**
@@ -25,6 +32,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        // Schema::dropIfExists('products');
+
+        Schema::connection('mongodb')
+            ->table('products', function ($collection) {
+
+                $collection->dropIndex(['name']);
+
+            });
     }
 };
