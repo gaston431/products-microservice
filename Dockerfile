@@ -13,7 +13,7 @@ RUN apk add --no-cache \
     oniguruma-dev \
     linux-headers autoconf g++ make openssl-dev
 
-RUN docker-php-ext-install pdo pdo_mysql bcmath
+RUN docker-php-ext-install pdo pdo_mysql bcmath sockets
 
 # Extensión nativa de MongoDB vía PECL
 RUN pecl install mongodb && docker-php-ext-enable mongodb
